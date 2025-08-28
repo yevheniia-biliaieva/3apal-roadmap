@@ -10,6 +10,34 @@
 	</head>
 	<body>
 		<h1>3apal — Roadmap залежностей</h1>
+		<div class="toolbar">
+			<div class="col-4">
+				<label>Repo (owner/name)</label>
+				<input id="gh_repo" placeholder="owner/name" />
+			</div>
+			<div class="col-2">
+				<label>Branch</label>
+				<input id="gh_branch" placeholder="main" value="main" />
+			</div>
+			<div class="col-3">
+				<label>State path</label>
+				<input id="gh_path" placeholder="state.json" value="state.json" />
+			</div>
+			<div class="col-3">
+				<label>Token (fine-grained)</label>
+				<input id="gh_token" placeholder="ghp_***" type="password" />
+			</div>
+			<div class="col-12">
+				<button id="btn_load">Load state from GitHub</button>
+				<button id="btn_save">Save state to GitHub</button>
+				<span class="status" id="gh_status"></span>
+			</div>
+			<div class="hint">
+				Тільки для PM: введи GitHub repo, гілку, шлях до файла та token з
+				правами на коміти (для публічного репо достатньо <i>public_repo</i>).
+				Сторінка синхронізує лише <b>done</b>-статуси (список id).
+			</div>
+		</div>
 		<div class="legend">
 			У кожній карточці: <b>Залежить від</b> та <b>Відкриває</b> показують
 			пов'язані таски. Після кожної назви — рекомендований <b>дедлайн</b> між
@@ -1665,5 +1693,7 @@
 				</div>
 			</div>
 		</div>
+		<footer></footer>
+	
 	</body>
 </html>
