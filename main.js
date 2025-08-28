@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', makeLinks);
     }
   }
 
-   window.__saveState = saveStateInternal;
+  window.__saveState = saveStateInternal;
 
   document.addEventListener('DOMContentLoaded', ()=>{
     loadCfgToUI();
@@ -248,8 +248,6 @@ document.addEventListener('DOMContentLoaded', makeLinks);
     if (c.repo && c.branch && c.path && c.token){
       $.repo.value = c.repo; $.branch.value = c.branch; $.path.value = c.path; $.token.value = c.token;
       loadState({quietAuto:true}).catch(()=>{});
-      // 🔄 авто-оновлення кожну хвилину
-      setInterval(()=> loadState({quietAuto:true}), 60000);
     }
   });
 })();
