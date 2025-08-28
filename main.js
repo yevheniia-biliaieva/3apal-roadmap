@@ -117,10 +117,12 @@ document.addEventListener('DOMContentLoaded', makeLinks);
 })();
 
 
-// ============ GitHub Sync ============
+// ---- GitHub Sync (load/save + auto-Load + 409 retry) ----
 (function(){
   const KEY_CFG  = 'ghSyncCfg.v1';
   const KEY_DONE = 'doneTasks.v1';
+  const DEBOUNCE_MS = 400;      // анти-спам на авто-Save
+  let saveTimer = null;
 
   const els = () => ({
     repo:   document.getElementById('gh_repo'),
@@ -134,6 +136,7 @@ document.addEventListener('DOMContentLoaded', makeLinks);
 
   const cfgGet = () => { try { return JSON.parse(localStorage.getItem(KEY_CFG) || '{}'); } catch(e){ return {}; } };
   const cfgSet = (o) => localStorage.setItem(KEY_CFG, JSON.stringify(o));
+
   const getDone = () => { try { return JSON.parse(localStorage.getItem(KEY_DONE) || '[]'); } catch(e){ return []; } };
   const setDone = (arr) => localStorage.setItem(KEY_DONE, JSON.stringify(arr));
 
@@ -153,62 +156,85 @@ document.addEventListener('DOMContentLoaded', makeLinks);
   }
 
   function loadCfgToUI(){
-    const c = cfgGet(); const $ = els();
-    if (c.repo) $.repo.value = c.repo;
+    const c = cfgGet();
+    const $ = els();
+    if (c.repo)   $.repo.value = c.repo;
     if (c.branch) $.branch.value = c.branch;
-    if (c.path) $.path.value = c.path;
-    if (c.token) $.token.value = c.token;
+    if (c.path)   $.path.value = c.path;
+    if (c.token)  $.token.value = c.token; // зберігаємо токен у localStorage, щоби ПМ не вводила щоразу
+  }
+
+  async function ghJSON(url, opts={}){
+    try{
+      const r = await fetch(url, {
+        headers: { 'Accept':'application/vnd.github+json', 'Cache-Control':'no-cache', ...(opts.headers||{}) },
+        ...opts
+      });
+      if (!r.ok){
+        const t = await r.text().catch(()=>String(r.status));
+        throw new Error(`HTTP ${r.status}: ${t}`);
+      }
+      return r.json();
+    } catch(err){
+      // TypeError: Failed to fetch — мережа/AdBlock/HTTPS тощо
+      throw err;
+    }
   }
 
   async function getContent(repo, path, ref, token){
     const api = `https://api.github.com/repos/${repo}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(ref)}`;
-    const headers = { 'Accept':'application/vnd.github+json', 'Cache-Control':'no-cache' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-    const r = await fetch(api, { headers });
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    return r.json();
+    return ghJSON(api, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
   }
 
   function decodeContent(b64){ return atob((b64||'').replace(/\n/g,'')); }
   function encodeContent(str){ return btoa(unescape(encodeURIComponent(str))); }
 
-  async function loadState({quietAuto=false, retries=2}={}){
+  async function loadState({quietAuto=false}={}){
     const {repo, branch, path, token} = readCfg();
     if (!repo || !branch || !path || !token){
-      show('Заповни repo / branch / path / token.', false, quietAuto); return;
+      show('Заповни repo / branch / path / token.', false, quietAuto);
+      return;
     }
-    try {
+    try{
       show('Завантажую...', true, quietAuto);
-      const data = await getContent(repo, path, branch, token);
+      const data = await getContent(repo, path, branch, token)
+        .catch(async (e)=>{
+          // 404: файла ще нема — вважаємо порожнім станом
+          if (String(e.message).startsWith('HTTP 404')) return {content: btoa('[]')};
+          throw e;
+        });
       const raw = decodeContent(data.content || '');
       const json = JSON.parse(raw || '[]');
-      let arr = [];
-      if (Array.isArray(json)) arr = json;
-      else if (json && Array.isArray(json.done)) arr = json.done;
+      const arr = Array.isArray(json) ? json : (json.done || []);
       setDone(arr);
       window.__applyDoneUI && window.__applyDoneUI();
       show('Стан завантажено з GitHub.', true, quietAuto);
     } catch(e){
-      if (retries>0){
-        console.warn('Load failed, retrying...', e);
-        setTimeout(()=>loadState({quietAuto, retries:retries-1}), 2000);
-      } else {
-        show('Помилка завантаження: ' + e.message, false, quietAuto);
-      }
+      show('Помилка завантаження: ' + e.message, false, quietAuto);
     }
   }
 
   async function saveStateInternal(){
     const {repo, branch, path, token} = readCfg();
     if (!repo || !branch || !path || !token){
-      show('Заповни repo / branch / path / token.', false); return;
+      show('Заповни repo / branch / path / token.', false);
+      return;
     }
     show('Зберігаю...');
     const api = `https://api.github.com/repos/${repo}/contents/${encodeURIComponent(path)}`;
 
+    // завжди спочатку тягнемо актуальний sha (або 404 якщо файла нема)
     let sha = null;
-    try { const info = await getContent(repo, path, branch, token); sha = info.sha || null; }
-    catch(e){ if (!String(e.message).startsWith('HTTP 404')) { show('Помилка (info): '+e.message,false); return; } }
+    try{
+      const info = await getContent(repo, path, branch, token);
+      sha = info.sha || null;
+    } catch(e){
+      if (!String(e.message).startsWith('HTTP 404')) {
+        // не 404 — реальна помилка
+        show('Помилка збереження (info): ' + e.message, false);
+        return;
+      }
+    }
 
     const body = {
       message: 'Update roadmap done state',
@@ -217,26 +243,50 @@ document.addEventListener('DOMContentLoaded', makeLinks);
       ...(sha ? { sha } : {})
     };
 
-    async function put(shaOverride){
+    async function put(withSha){
       const res = await fetch(api, {
         method: 'PUT',
-        headers: { 'Accept':'application/vnd.github+json','Authorization':`Bearer ${token}` },
-        body: JSON.stringify(shaOverride ? {...body, sha: shaOverride} : body)
+        headers: { 'Accept':'application/vnd.github+json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify(withSha ? {...body, sha: withSha} : body)
       });
-      if (!res.ok){ const txt = await res.text(); throw new Error(`HTTP ${res.status}: ${txt}`); }
+      if (!res.ok){
+        const txt = await res.text();
+        throw new Error(`HTTP ${res.status}: ${txt}`);
+      }
     }
 
-    try { await put(sha); show('Збережено в GitHub.'); }
-    catch(e){
+    try{
+      await put(sha);
+      show('Збережено в GitHub.');
+    } catch(e){
+      // якщо 409 — підтягнемо свіжий sha і ретраїмо один раз
       if (String(e.message).startsWith('HTTP 409')){
-        try { const fresh = await getContent(repo, path, branch, token); await put(fresh.sha);
-          show('Збережено в GitHub (після оновлення sha).'); }
-        catch(e2){ show('Помилка збереження (409 retry): '+e2.message,false); }
-      } else { show('Помилка збереження: '+e.message,false); }
+        try{
+          const fresh = await getContent(repo, path, branch, token);
+          await put(fresh.sha);
+          show('Збережено в GitHub (після оновлення sha).');
+        } catch(e2){
+          show('Помилка збереження (409 retry): ' + e2.message, false);
+        }
+      } else {
+        show('Помилка збереження: ' + e.message, false);
+      }
     }
   }
 
-  window.__saveState = saveStateInternal;
+  // публічні кнопки та авто-Save (дебаунс)
+  function saveStateDebounced(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveStateInternal, DEBOUNCE_MS);
+  }
+
+  // інтеграція з “правий клік” — тригеримо авто-Save
+  document.addEventListener('contextmenu', (e)=>{
+    if (e.target.closest('.task')){
+      // зачекаємо поки локальний стан оновиться (__applyDoneUI викликано) і збережемо
+      setTimeout(saveStateDebounced, 50);
+    }
+  }, true);
 
   document.addEventListener('DOMContentLoaded', ()=>{
     loadCfgToUI();
@@ -244,10 +294,12 @@ document.addEventListener('DOMContentLoaded', makeLinks);
     if ($.load) $.load.onclick = ()=>loadState();
     if ($.save) $.save.onclick = ()=>saveStateInternal();
 
+    // авто-Load при відкритті, якщо є всі поля — і робимо це “тихо”
     const c = cfgGet();
     if (c.repo && c.branch && c.path && c.token){
+      // підставити у форму, щоб ПМ нічого не вводила
       $.repo.value = c.repo; $.branch.value = c.branch; $.path.value = c.path; $.token.value = c.token;
-      loadState({quietAuto:true}).catch(()=>{});
+      loadState({quietAuto:true}).catch(()=>{ /* тихо */ });
     }
   });
 })();
