@@ -1,1702 +1,534 @@
 <!DOCTYPE html>
 
 <html lang="uk">
-	<head>
-		<meta charset="utf-8" />
-		<meta content="width=device-width, initial-scale=1" name="viewport" />
-		<title>3apal — Roadmap</title>
-		<link rel="stylesheet" href="style.css" />
-		<script src="./main.js"></script>
-	</head>
-	<body>
-		<h1>3apal — Roadmap</h1>
-		<div class="toolbar">
-			<div class="col-4">
-				<label>Repo (owner/name)</label>
-				<input id="gh_repo" placeholder="owner/name" />
-			</div>
-			<div class="col-2">
-				<label>Branch</label>
-				<input id="gh_branch" placeholder="main" value="main" />
-			</div>
-			<div class="col-3">
-				<label>State path</label>
-				<input id="gh_path" placeholder="state.json" value="state.json" />
-			</div>
-			<div class="col-3">
-				<label>Token (fine-grained)</label>
-				<input id="gh_token" placeholder="ghp_***" type="password" />
-			</div>
-			<div class="col-12">
-				<button id="btn_load">Load state from GitHub</button>
-				<button id="btn_save">Save state to GitHub</button>
-				<span class="status" id="gh_status"></span>
-			</div>
-			<div class="hint">
-				Тільки для PM: введи GitHub repo та token з
-				правами на коміти (в чаті).
-				Сторінка синхронізує лише <b>done</b>-статуси.
-				</br>
-				<b>Змінила статус тасок - тисни Save state to GitHub.</b>
-				<b>Перед початком роботи завжди тисни Load state from GitHub </b>
-			</div>
-		</div>
-		<div class="legend">
-			У кожній карточці: <b>Залежить від</b> та <b>Відкриває</b> показують
-			пов'язані таски. Після кожної назви — рекомендований <b>дедлайн</b> між
-			завершенням одного й стартом іншого (орієнтир (дедлайни узгоджуємо)).
-		</div>
-		<div class="context-hint">
-			Підказка: клік правою кнопкою миші по карточці — позначити як виконану /
-			зняти відмітку. Статус зберігається.
-		</div>
-		<div class="wrapper">
-			<div class="lane">
-				<h2>🧱 Стратегія та бренд-основа</h2>
-				<div
-					class="task"
-					data-deps=""
-					data-title="Бренд-документ"
-					id="brand_doc"
-				>
-					<div class="title">Бренд-документ</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: BD | A: BD | C: CEO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps=""
-					data-title="Позиціонування (one-liner, value props)"
-					id="positioning"
-				>
-					<div class="title">Позиціонування (one-liner, value props)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: CEO | A: CEO | C: COO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps=""
-					data-title="Контент-піллари"
-					id="content_pillars"
-				>
-					<div class="title">Контент-піллари</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: CEO | C: CEO | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div class="task" data-deps="" data-title="KPI запуску" id="kpi_launch">
-					<div class="title">KPI запуску</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: COO | A: COO | C: CEO | I: SMM,
-						Sales Manager
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-			</div>
-			<div class="lane">
-				<h2>🎨 Візуальна айдентика</h2>
-				<div
-					class="task"
-					data-deps="brand_doc,positioning"
-					data-title="Лого-система (версії)"
-					id="logo_system"
-				>
-					<div class="title">Лого-система (версії)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Brand Designer | A: CEO | C: CEO |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="logo_system"
-					data-title="Кольори, шрифти, система"
-					id="colors_fonts"
-				>
-					<div class="title">Кольори, шрифти, система</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Brand Designer | A: CEO | C:
-						Graphic Designer | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="colors_fonts,content_pillars"
-					data-title="Шаблони Instagram"
-					id="ig_templates"
-				>
-					<div class="title">Шаблони Instagram</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Brand Designer | A: Brand Designer
-						| C: SMM | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="logo_system,colors_fonts"
-					data-title="Візуальні матеріали pop-up"
-					id="popup_visuals"
-				>
-					<div class="title">Візуальні матеріали pop-up</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Brand Designer | A: COO | C:
-						Graphic Designer | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="colors_fonts"
-					data-title="Іконки, патерни, ілюстрації"
-					id="icons_patterns"
-				>
-					<div class="title">Іконки, патерни, ілюстрації</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Graphic Designer | A: Brand
-						Designer | C: CEO | I: SMM
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="ig_templates"
-					data-title="Соцпакет (аватарки, covers)"
-					id="social_pack"
-				>
-					<div class="title">Соцпакет (аватарки, covers)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Brand Designer | A: Brand Designer
-						| C: SMM | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="logo_system,colors_fonts"
-					data-title="Бірки (дизайн)"
-					id="tags_design"
-				>
-					<div class="title">Бірки (дизайн)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Brand Designer | A: COO | C: CEO |
-						I: LPA
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="logo_system,colors_fonts"
-					data-title="Лейбли/етикетки (дизайн)"
-					id="labels_design"
-				>
-					<div class="title">Лейбли/етикетки (дизайн)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Brand Designer | A: COO | C: Lead
-						Product Artisan | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="logo_system,colors_fonts"
-					data-title="Вкладиші (care-card, дяку-картка, QR)"
-					id="inserts_design"
-				>
-					<div class="title">Вкладиші (care-card, дяку-картка, QR)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Brand Designer | A: COO | C: CEO |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_visuals"
-					data-title="Афіші/цінники для pop-up"
-					id="popup_posters"
-				>
-					<div class="title">Афіші/цінники для pop-up</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Graphic Designer | A: COO | C:
-						Brand Designer | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-			</div>
-			<div class="lane">
-				<h2>🔥 Продукт і виробництво (Pre-drop)</h2>
-				<div
-					class="task"
-					data-deps=""
-					data-title="50+ дизайнів запальничок"
-					id="lighter_designs"
-				>
-					<div class="title">50+ дизайнів запальничок</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Graphic Designer | A: CEO | C:
-						Brand Designer | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="lighter_designs"
-					data-title="Тест-друк запальничок"
-					id="lighter_test_print"
-				>
-					<div class="title">Тест-друк запальничок</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: COO | A: COO | C: Graphic Designer
-						| I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps=""
-					data-title="3 лекала сумок"
-					id="bag_patterns"
-				>
-					<div class="title">3 лекала сумок</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C:
-						CEO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps=""
-					data-title="2 лекала кисетів"
-					id="pouch_patterns"
-				>
-					<div class="title">2 лекала кисетів</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C:
-						CEO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps=""
-					data-title="2 лекала кейсів для запальничок"
-					id="lighter_case_patterns"
-				>
-					<div class="title">2 лекала кейсів для запальничок</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C:
-						CEO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps=""
-					data-title="Пошук постачальників"
-					id="suppliers_search"
-				>
-					<div class="title">Пошук постачальників</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: COO | A: COO | C: PM | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="pouch_patterns,bag_patterns,lighter_case_patterns"
-					data-title="Пошиття семплів"
-					id="samples_sew"
-				>
-					<div class="title">Пошиття семплів</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C:
-						CEO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="samples_sew"
-					data-title="Внутрішній фідбек"
-					id="feedback_internal"
-				>
-					<div class="title">Внутрішній фідбек</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: PM | A: COO | C: CEO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="feedback_internal"
-					data-title="Зовнішній фідбек + анкета"
-					id="feedback_external"
-				>
-					<div class="title">Зовнішній фідбек + анкета</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: CEO | A: CEO | C: Sales Manager |
-						I: COO, LPA
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="feedback_external"
-					data-title="Таблиця з фідбеком"
-					id="feedback_table"
-				>
-					<div class="title">Таблиця з фідбеком</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: PM | A: COO | C: CEO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="feedback_table"
-					data-title="Корекції дизайну"
-					id="design_corrections"
-				>
-					<div class="title">Корекції дизайну</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C:
-						CEO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="design_corrections,suppliers_search,lighter_test_print"
-					data-title="Product brief (SKU, маржа)"
-					id="product_brief"
-				>
-					<div class="title">Product brief (SKU, маржа)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: COO | A: COO | C: CEO | I: Sales,
-						LPA
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="product_brief"
-					data-title="Tech pack + BOM"
-					id="techpack_bom"
-				>
-					<div class="title">Tech pack + BOM</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C:
-						CEO | I: LPA, COO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="techpack_bom"
-					data-title="QC/QA чекліст"
-					id="qcqa_checklist"
-				>
-					<div class="title">QC/QA чекліст</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: COO | A: COO | C: LPA | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="samples_sew"
-					data-title="Фото семплів"
-					id="samples_photos"
-				>
-					<div class="title">Фото семплів</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: PM | C: Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="suppliers_search"
-					data-title="План резервних підрядників"
-					id="backup_vendors"
-				>
-					<div class="title">План резервних підрядників</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: COO | A: COO | C: LPA | I: -
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-			</div>
-			<div class="lane">
-				<h2>📢 Маркетинг (Pre-drop)</h2>
-				<div
-					class="task"
-					data-deps="content_pillars"
-					data-title="Контент-стратегія"
-					id="content_strategy"
-				>
-					<div class="title">Контент-стратегія</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: CEO | C: CEO, Sales | I:
-						CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="content_strategy,ig_templates"
-					data-title="План контенту (до/під час/після)"
-					id="content_plan"
-				>
-					<div class="title">План контенту (до/під час/після)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: CEO | C: COO | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="ig_templates"
-					data-title="Візуал для постів"
-					id="visuals_posts"
-				>
-					<div class="title">Візуал для постів</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Brand Designer | A: SMM | C:
-						Graphic Designer | I: SMM, CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="content_strategy,product_brief"
-					data-title="Тексти та описи"
-					id="copies"
-				>
-					<div class="title">Тексти та описи</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: CEO | C: Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="brand_doc"
-					data-title="Tone of Voice у постах"
-					id="tone"
-				>
-					<div class="title">Tone of Voice у постах</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: CEO | C: Sales | I:
-						команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="content_strategy"
-					data-title="UGC концепт"
-					id="ugc_concept"
-				>
-					<div class="title">UGC концепт</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: SMM | C: Sales Manager |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="ugc_concept"
-					data-title="Збір перших згадок"
-					id="first_mentions"
-				>
-					<div class="title">Збір перших згадок</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: CEO | C: команда | I:
-						Sales
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="content_plan"
-					data-title="Мікроінфлюенсери + інвайти"
-					id="micro_influencers"
-				>
-					<div class="title">Мікроінфлюенсери + інвайти</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales Manager | A: COO | C: SMM |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="micro_influencers"
-					data-title="Промо-набір 10 інфлюенсерам"
-					id="promo_kits"
-				>
-					<div class="title">Промо-набір 10 інфлюенсерам</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales Manager | A: COO | C: CEO |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="content_plan,visuals_posts"
-					data-title="Препіар + тизер-кампанія"
-					id="prepr_teaser"
-				>
-					<div class="title">Препіар + тизер-кампанія</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: CEO | C: Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="content_strategy"
-					data-title="Медійний план 4 тижні"
-					id="media_plan"
-				>
-					<div class="title">Медійний план 4 тижні</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: CEO | C: Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="content_plan"
-					data-title="Шотліст зйомки + релізи моделей"
-					id="shoot_shotlist"
-				>
-					<div class="title">Шотліст зйомки + релізи моделей</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: COO | C: CEO | I: SMM
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="sales_platform"
-					data-title="Реферальна програма"
-					id="ref_program"
-				>
-					<div class="title">Реферальна програма</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales Manager | A: COO | C: SMM |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="content_strategy"
-					data-title="Кризовий гайд"
-					id="crisis_guide"
-				>
-					<div class="title">Кризовий гайд</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: COO | C: CEO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-			</div>
-			<div class="lane">
-				<h2>💳 Продажі та клієнтський шлях</h2>
-				<div
-					class="task"
-					data-deps="product_brief"
-					data-title="Запуск платформи продажу"
-					id="sales_platform"
-				>
-					<div class="title">Запуск платформи продажу</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales Manager | A: PM | C: SMM |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="sales_platform"
-					data-title="Прийом і обробка перших замовлень"
-					id="orders_processing"
-				>
-					<div class="title">Прийом і обробка перших замовлень</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales Manager | A: Sales Manager |
-						C: COO | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="orders_processing"
-					data-title="FAQ і підтримка клієнтів у реальному часі"
-					id="faq_support"
-				>
-					<div class="title">FAQ і підтримка клієнтів у реальному часі</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales Manager, SMM | A: PM | C:
-						SMM | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="sales_platform"
-					data-title="Welcome-повідомлення клієнтам"
-					id="welcome_msgs"
-				>
-					<div class="title">Welcome-повідомлення клієнтам</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: CEO | C: Sales Manager |
-						I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-			</div>
-			<div class="lane">
-				<h2>📦 Логістика та інфраструктура</h2>
-				<div
-					class="task"
-					data-deps="orders_processing"
-					data-title="Реальні відправлення"
-					id="real_shipments"
-				>
-					<div class="title">Реальні відправлення</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales | A: COO | C: COO | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="real_shipments"
-					data-title="Обробка повернень"
-					id="returns"
-				>
-					<div class="title">Обробка повернень</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales | A: COO | C: COO | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-			</div>
-			<div class="lane">
-				<h2>🪩 Pop-up (фінальний етап)</h2>
-				<div
-					class="task"
-					data-deps="packaging,teaser_reveal_drop"
-					data-title="Локація заброньована"
-					id="popup_location"
-				>
-					<div class="title">Локація заброньована</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: CEO | A: CEO | C: CEO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_location"
-					data-title="Зонування (товар, chill, food)"
-					id="popup_zoning"
-				>
-					<div class="title">Зонування (товар, chill, food)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C:
-						Sales, SMM | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_zoning"
-					data-title="Стіл і декор"
-					id="popup_decor"
-				>
-					<div class="title">Стіл і декор</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan, Graphic
-						Designer, SMM | A: COO | C: Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_decor"
-					data-title="Гірлянди, постери, вази"
-					id="popup_garlands"
-				>
-					<div class="title">Гірлянди, постери, вази</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: COO | C: Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_location,popup_posters"
-					data-title="Афіші, дзеркала"
-					id="popup_mirrors"
-				>
-					<div class="title">Афіші, дзеркала</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Graphic Designer | A: COO | C:
-						Brand Designer | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="mass_production,popup_invites"
-					data-title="Інвайт-бокси (запальничка + артефакти)"
-					id="popup_invite_boxes"
-				>
-					<div class="title">Інвайт-бокси (запальничка + артефакти)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales Manager, LPA | A: COO | C:
-						команда | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_zoning"
-					data-title="Зона апсайкл-обміну"
-					id="popup_upcycle"
-				>
-					<div class="title">Зона апсайкл-обміну</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C:
-						Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_zoning"
-					data-title="Фотозона/стенд"
-					id="popup_photozone"
-				>
-					<div class="title">Фотозона/стенд</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan, SMM | A: COO
-						| C: Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="teaser_reveal_drop"
-					data-title="Розсилка інвайтів"
-					id="popup_invites"
-				>
-					<div class="title">Розсилка інвайтів</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales Manager | A: COO | C: SMM |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_script"
-					data-title="Плейлист і музика"
-					id="popup_playlist"
-				>
-					<div class="title">Плейлист і музика</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: команда | A: PM | C: - | I: -
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_location"
-					data-title="Сценарій заходу + відповідальні за зони"
-					id="popup_script"
-				>
-					<div class="title">Сценарій заходу + відповідальні за зони</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: PM | A: COO | C: CEO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_photovideo"
-					data-title="Фідбек після події"
-					id="popup_feedback"
-				>
-					<div class="title">Фідбек після події</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales | A: PM | C: CEO, SMM | I:
-						команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_script"
-					data-title="Фото/відео"
-					id="popup_photovideo"
-				>
-					<div class="title">Фото/відео</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: SMM | C: Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="sales_platform"
-					data-title="POS-рішення (термінал/QR, чеки)"
-					id="popup_pos"
-				>
-					<div class="title">POS-рішення (термінал/QR, чеки)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: COO | A: COO | C: Sales Manager |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="packaging"
-					data-title="Інвентаризація для івенту (SKU, ціники)"
-					id="popup_inventory"
-				>
-					<div class="title">Інвентаризація для івенту (SKU, ціники)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: COO | A: COO | C: Sales Manager |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_zoning"
-					data-title="Планограма столу"
-					id="popup_planogram"
-				>
-					<div class="title">Планограма столу</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan | A: LPA | C:
-						Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="sales_platform"
-					data-title="Скрипти продажів"
-					id="popup_sales_scripts"
-				>
-					<div class="title">Скрипти продажів</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales | A: CEO | C: CEO | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="popup_feedback,popup_photovideo"
-					data-title="Дяку-листи, пост-дайджест після івенту"
-					id="popup_thanks_digest"
-				>
-					<div class="title">Дяку-листи, пост-дайджест після івенту</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: CEO | C: Sales Manager |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-			</div>
-			<div class="lane">
-				<h2>🔥 Продукт і виробництво (Drop-month)</h2>
-				<div
-					class="task"
-					data-deps="techpack_bom,qcqa_checklist"
-					data-title="Виробництво дропу (сумки, кисети, запальнички)"
-					id="mass_production"
-				>
-					<div class="title">
-						Виробництво дропу (сумки, кисети, запальнички)
-					</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan, COO | A: COO
-						| C: CEO | I: команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="final_qc,tags_attached,care_labels,thank_you_cards"
-					data-title="Пакування продукції (збірка, коробки, вкладення)"
-					id="packaging"
-				>
-					<div class="title">
-						Пакування продукції (збірка, коробки, вкладення)
-					</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: COO, Brand Designer, LPA | A: COO
-						| C: Sales Manager, SMM | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="mass_production"
-					data-title="Краш-тести та перевірка якості виробів"
-					id="crash_tests"
-				>
-					<div class="title">Краш-тести та перевірка якості виробів</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: COO, LPA | A: COO | C: команда |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="design_corrections"
-					data-title="Фінальна перевірка семплів перед масовим запуском"
-					id="final_samples_check"
-				>
-					<div class="title">
-						Фінальна перевірка семплів перед масовим запуском
-					</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C:
-						CEO | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="tags_design,mass_production"
-					data-title="Бірки вшиті (виробництво та пришивання)"
-					id="tags_attached"
-				>
-					<div class="title">Бірки вшиті (виробництво та пришивання)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Brand Designer, Lead Product
-						Artisan | A: COO | C: CEO | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="labels_design,mass_production"
-					data-title="Етикетки (догляд, склад, просто етикетка)"
-					id="care_labels"
-				>
-					<div class="title">Етикетки (догляд, склад, просто етикетка)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Brand Designer, COO | A: COO | C:
-						LPA | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="inserts_design,mass_production"
-					data-title="Дяку-картки (вкладиші)"
-					id="thank_you_cards"
-				>
-					<div class="title">Дяку-картки (вкладиші)</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Brand Designer, COO | A: COO | C:
-						Sales Manager, LPA | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="final_qc"
-					data-title="Фото/відео архів готових виробів"
-					id="final_photo_archive"
-				>
-					<div class="title">Фото/відео архів готових виробів</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: COO | C: Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="mass_production,crash_tests"
-					data-title="Фінальний QC перед пакуванням (checklist на кожен SKU)"
-					id="final_qc"
-				>
-					<div class="title">
-						Фінальний QC перед пакуванням (checklist на кожен SKU)
-					</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: COO, LPA | A: COO | C: LPA | I:
-						команда
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-			</div>
-			<div class="lane">
-				<h2>📢 Маркетинг (Drop-month)</h2>
-				<div
-					class="task"
-					data-deps="prepr_teaser,media_plan"
-					data-title="Тизер-кампанія → reveal → день дропу"
-					id="teaser_reveal_drop"
-				>
-					<div class="title">Тизер-кампанія → reveal → день дропу</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: CEO | C: Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="promo_kits"
-					data-title="Робота з інфлюенсерами"
-					id="influencers_ops"
-				>
-					<div class="title">Робота з інфлюенсерами</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales Manager | A: PM | C: SMM |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="content_plan,visuals_posts"
-					data-title="Пости й рілзи під час запуску"
-					id="launch_posts"
-				>
-					<div class="title">Пости й рілзи під час запуску</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: PM | C: Sales | I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="ugc_concept"
-					data-title="UGC-кампанія"
-					id="ugc_campaign"
-				>
-					<div class="title">UGC-кампанія</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: SMM | A: CEO | C: Sales Manager |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-				<div
-					class="task"
-					data-deps="real_shipments,ugc_campaign"
-					data-title="Збір відгуків і кейсів"
-					id="reviews_cases"
-				>
-					<div class="title">Збір відгуків і кейсів</div>
-					<div class="raci">
-						<span class="badge">RACI</span>R: Sales Manager | A: COO | C: SMM |
-						I: CEO
-					</div>
-					<div class="deps">
-						<span class="badge">Залежить від</span
-						><span class="deps-list"></span>
-					</div>
-					<div class="unlocks">
-						<span class="badge">Відкриває</span
-						><span class="unlocks-list"></span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<footer></footer>
-	
-	</body>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>3apal — Roadmap</title>
+</head>
+<body>
+<h1>3apal — Roadmap</h1>
+<div class="legend">
+  Клік правою кнопкою по картці — <b>виконано / скасувати</b>.
+
+<div style="margin-top:6px; font-size:12px; color:#c0c6d4;">
+<span style="display:inline-block; width:14px; height:14px; background:#0f1a12; border:1px solid #2e804a; margin-right:4px; vertical-align:middle;"></span>
+  Виконано (done) — зелений<br/>
+<span style="display:inline-block; width:14px; height:14px; background:#15121f; border:1px solid #6a5acd; margin-right:4px; vertical-align:middle;"></span>
+  Ready-to-start — фіолетовий (усі залежності виконані або відсутні)
+</div>
+</div>
+<div class="wrapper">
+<div class="lane"><h2>🧱 Стратегія та бренд-основа</h2>
+<div class="task" data-deps="" data-title="Бренд-документ" id="brand_doc">
+<div class="title">Бренд-документ</div>
+<div class="raci"><span class="badge">RACI</span>R: BD | A: BD | C: CEO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="" data-title="Позиціонування (one-liner, value props)" id="positioning">
+<div class="title">Позиціонування (one-liner, value props)</div>
+<div class="raci"><span class="badge">RACI</span>R: CEO | A: CEO | C: COO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="" data-title="Контент-піллари" id="content_pillars">
+<div class="title">Контент-піллари</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: CEO | C: CEO | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="" data-title="KPI запуску" id="kpi_launch">
+<div class="title">KPI запуску</div>
+<div class="raci"><span class="badge">RACI</span>R: COO | A: COO | C: CEO | I: SMM, Sales Manager</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+</div>
+<div class="lane"><h2>🎨 Візуальна айдентика</h2>
+<div class="task" data-deps="brand_doc,positioning" data-title="Лого-система (версії)" id="logo_system">
+<div class="title">Лого-система (версії)</div>
+<div class="raci"><span class="badge">RACI</span>R: Brand Designer | A: CEO | C: CEO | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="logo_system" data-title="Кольори, шрифти, система" id="colors_fonts">
+<div class="title">Кольори, шрифти, система</div>
+<div class="raci"><span class="badge">RACI</span>R: Brand Designer | A: CEO | C: Graphic Designer | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="colors_fonts,content_pillars" data-title="Шаблони Instagram" id="ig_templates">
+<div class="title">Шаблони Instagram</div>
+<div class="raci"><span class="badge">RACI</span>R: Brand Designer | A: Brand Designer | C: SMM | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="logo_system,colors_fonts" data-title="Візуальні матеріали pop-up" id="popup_visuals">
+<div class="title">Візуальні матеріали pop-up</div>
+<div class="raci"><span class="badge">RACI</span>R: Brand Designer | A: COO | C: Graphic Designer | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="colors_fonts" data-title="Іконки, патерни, ілюстрації" id="icons_patterns">
+<div class="title">Іконки, патерни, ілюстрації</div>
+<div class="raci"><span class="badge">RACI</span>R: Graphic Designer | A: Brand Designer | C: CEO | I: SMM</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="ig_templates" data-title="Соцпакет (аватарки, covers)" id="social_pack">
+<div class="title">Соцпакет (аватарки, covers)</div>
+<div class="raci"><span class="badge">RACI</span>R: Brand Designer | A: Brand Designer | C: SMM | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="logo_system,colors_fonts" data-title="Бірки (дизайн)" id="tags_design">
+<div class="title">Бірки (дизайн)</div>
+<div class="raci"><span class="badge">RACI</span>R: Brand Designer | A: COO | C: CEO | I: LPA</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="logo_system,colors_fonts" data-title="Лейбли/етикетки (дизайн)" id="labels_design">
+<div class="title">Лейбли/етикетки (дизайн)</div>
+<div class="raci"><span class="badge">RACI</span>R: Brand Designer | A: COO | C: Lead Product Artisan | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="logo_system,colors_fonts" data-title="Вкладиші (care-card, дяку-картка, QR)" id="inserts_design">
+<div class="title">Вкладиші (care-card, дяку-картка, QR)</div>
+<div class="raci"><span class="badge">RACI</span>R: Brand Designer | A: COO | C: CEO | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_visuals" data-title="Афіші/цінники для pop-up" id="popup_posters">
+<div class="title">Афіші/цінники для pop-up</div>
+<div class="raci"><span class="badge">RACI</span>R: Graphic Designer | A: COO | C: Brand Designer | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+</div>
+<div class="lane"><h2>🔥 Продукт і виробництво (Pre-drop)</h2>
+<div class="task" data-deps="" data-title="50+ дизайнів запальничок" id="lighter_designs">
+<div class="title">50+ дизайнів запальничок</div>
+<div class="raci"><span class="badge">RACI</span>R: Graphic Designer | A: CEO | C: Brand Designer | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="lighter_designs" data-title="Тест-друк запальничок" id="lighter_test_print">
+<div class="title">Тест-друк запальничок</div>
+<div class="raci"><span class="badge">RACI</span>R: COO | A: COO | C: Graphic Designer | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="" data-title="3 лекала сумок" id="bag_patterns">
+<div class="title">3 лекала сумок</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C: CEO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="" data-title="2 лекала кисетів" id="pouch_patterns">
+<div class="title">2 лекала кисетів</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C: CEO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="" data-title="2 лекала кейсів для запальничок" id="lighter_case_patterns">
+<div class="title">2 лекала кейсів для запальничок</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C: CEO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="" data-title="Пошук постачальників" id="suppliers_search">
+<div class="title">Пошук постачальників</div>
+<div class="raci"><span class="badge">RACI</span>R: COO | A: COO | C: PM | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="pouch_patterns,bag_patterns,lighter_case_patterns" data-title="Пошиття семплів" id="samples_sew">
+<div class="title">Пошиття семплів</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C: CEO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="samples_sew" data-title="Внутрішній фідбек" id="feedback_internal">
+<div class="title">Внутрішній фідбек</div>
+<div class="raci"><span class="badge">RACI</span>R: PM | A: COO | C: CEO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="feedback_internal" data-title="Зовнішній фідбек + анкета" id="feedback_external">
+<div class="title">Зовнішній фідбек + анкета</div>
+<div class="raci"><span class="badge">RACI</span>R: CEO | A: CEO | C: Sales Manager | I: COO, LPA</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="feedback_external" data-title="Таблиця з фідбеком" id="feedback_table">
+<div class="title">Таблиця з фідбеком</div>
+<div class="raci"><span class="badge">RACI</span>R: PM | A: COO | C: CEO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="feedback_table" data-title="Корекції дизайну" id="design_corrections">
+<div class="title">Корекції дизайну</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C: CEO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="design_corrections,suppliers_search,lighter_test_print" data-title="Product brief (SKU, маржа)" id="product_brief">
+<div class="title">Product brief (SKU, маржа)</div>
+<div class="raci"><span class="badge">RACI</span>R: COO | A: COO | C: CEO | I: Sales, LPA</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="product_brief" data-title="Tech pack + BOM" id="techpack_bom">
+<div class="title">Tech pack + BOM</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C: CEO | I: LPA, COO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="techpack_bom" data-title="QC/QA чекліст" id="qcqa_checklist">
+<div class="title">QC/QA чекліст</div>
+<div class="raci"><span class="badge">RACI</span>R: COO | A: COO | C: LPA | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="samples_sew" data-title="Фото семплів" id="samples_photos">
+<div class="title">Фото семплів</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: PM | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="suppliers_search" data-title="План резервних підрядників" id="backup_vendors">
+<div class="title">План резервних підрядників</div>
+<div class="raci"><span class="badge">RACI</span>R: COO | A: COO | C: LPA | I: -</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+</div>
+<div class="lane"><h2>📢 Маркетинг (Pre-drop)</h2>
+<div class="task" data-deps="content_pillars" data-title="Контент-стратегія" id="content_strategy">
+<div class="title">Контент-стратегія</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: CEO | C: CEO, Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="content_strategy,ig_templates" data-title="План контенту (до/під час/після)" id="content_plan">
+<div class="title">План контенту (до/під час/після)</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: CEO | C: COO | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="ig_templates" data-title="Візуал для постів" id="visuals_posts">
+<div class="title">Візуал для постів</div>
+<div class="raci"><span class="badge">RACI</span>R: Brand Designer | A: SMM | C: Graphic Designer | I: SMM, CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="content_strategy,product_brief" data-title="Тексти та описи" id="copies">
+<div class="title">Тексти та описи</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: CEO | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="brand_doc" data-title="Tone of Voice у постах" id="tone">
+<div class="title">Tone of Voice у постах</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: CEO | C: Sales | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="content_strategy" data-title="UGC концепт" id="ugc_concept">
+<div class="title">UGC концепт</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: SMM | C: Sales Manager | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="ugc_concept" data-title="Збір перших згадок" id="first_mentions">
+<div class="title">Збір перших згадок</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: CEO | C: команда | I: Sales</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="content_plan" data-title="Мікроінфлюенсери + інвайти" id="micro_influencers">
+<div class="title">Мікроінфлюенсери + інвайти</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales Manager | A: COO | C: SMM | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="micro_influencers" data-title="Промо-набір 10 інфлюенсерам" id="promo_kits">
+<div class="title">Промо-набір 10 інфлюенсерам</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales Manager | A: COO | C: CEO | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="content_plan,visuals_posts" data-title="Препіар + тизер-кампанія" id="prepr_teaser">
+<div class="title">Препіар + тизер-кампанія</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: CEO | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="content_strategy" data-title="Медійний план 4 тижні" id="media_plan">
+<div class="title">Медійний план 4 тижні</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: CEO | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="content_plan" data-title="Шотліст зйомки + релізи моделей" id="shoot_shotlist">
+<div class="title">Шотліст зйомки + релізи моделей</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: COO | C: CEO | I: SMM</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="sales_platform" data-title="Реферальна програма" id="ref_program">
+<div class="title">Реферальна програма</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales Manager | A: COO | C: SMM | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="content_strategy" data-title="Кризовий гайд" id="crisis_guide">
+<div class="title">Кризовий гайд</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: COO | C: CEO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+</div>
+<div class="lane"><h2>💳 Продажі та клієнтський шлях</h2>
+<div class="task" data-deps="product_brief" data-title="Запуск платформи продажу" id="sales_platform">
+<div class="title">Запуск платформи продажу</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales Manager | A: PM | C: SMM | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="sales_platform" data-title="Прийом і обробка перших замовлень" id="orders_processing">
+<div class="title">Прийом і обробка перших замовлень</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales Manager | A: Sales Manager | C: COO | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="orders_processing" data-title="FAQ і підтримка клієнтів у реальному часі" id="faq_support">
+<div class="title">FAQ і підтримка клієнтів у реальному часі</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales Manager, SMM | A: PM | C: SMM | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="sales_platform" data-title="Welcome-повідомлення клієнтам" id="welcome_msgs">
+<div class="title">Welcome-повідомлення клієнтам</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: CEO | C: Sales Manager | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+</div>
+<div class="lane"><h2>📦 Логістика та інфраструктура</h2>
+<div class="task" data-deps="orders_processing" data-title="Реальні відправлення" id="real_shipments">
+<div class="title">Реальні відправлення</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales | A: COO | C: COO | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="real_shipments" data-title="Обробка повернень" id="returns">
+<div class="title">Обробка повернень</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales | A: COO | C: COO | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+</div>
+<div class="lane"><h2>🪩 Pop-up (фінальний етап)</h2>
+<div class="task" data-deps="packaging,teaser_reveal_drop" data-title="Локація заброньована" id="popup_location">
+<div class="title">Локація заброньована</div>
+<div class="raci"><span class="badge">RACI</span>R: CEO | A: CEO | C: CEO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_location" data-title="Зонування (товар, chill, food)" id="popup_zoning">
+<div class="title">Зонування (товар, chill, food)</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C: Sales, SMM | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_zoning" data-title="Стіл і декор" id="popup_decor">
+<div class="title">Стіл і декор</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan, Graphic Designer, SMM | A: COO | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_decor" data-title="Гірлянди, постери, вази" id="popup_garlands">
+<div class="title">Гірлянди, постери, вази</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: COO | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_location,popup_posters" data-title="Афіші, дзеркала" id="popup_mirrors">
+<div class="title">Афіші, дзеркала</div>
+<div class="raci"><span class="badge">RACI</span>R: Graphic Designer | A: COO | C: Brand Designer | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="mass_production,popup_invites" data-title="Інвайт-бокси (запальничка + артефакти)" id="popup_invite_boxes">
+<div class="title">Інвайт-бокси (запальничка + артефакти)</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales Manager, LPA | A: COO | C: команда | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_zoning" data-title="Зона апсайкл-обміну" id="popup_upcycle">
+<div class="title">Зона апсайкл-обміну</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_zoning" data-title="Фотозона/стенд" id="popup_photozone">
+<div class="title">Фотозона/стенд</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan, SMM | A: COO | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="teaser_reveal_drop" data-title="Розсилка інвайтів" id="popup_invites">
+<div class="title">Розсилка інвайтів</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales Manager | A: COO | C: SMM | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_script" data-title="Плейлист і музика" id="popup_playlist">
+<div class="title">Плейлист і музика</div>
+<div class="raci"><span class="badge">RACI</span>R: команда | A: PM | C: - | I: -</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_location" data-title="Сценарій заходу + відповідальні за зони" id="popup_script">
+<div class="title">Сценарій заходу + відповідальні за зони</div>
+<div class="raci"><span class="badge">RACI</span>R: PM | A: COO | C: CEO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_photovideo" data-title="Фідбек після події" id="popup_feedback">
+<div class="title">Фідбек після події</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales | A: PM | C: CEO, SMM | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_script" data-title="Фото/відео" id="popup_photovideo">
+<div class="title">Фото/відео</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: SMM | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="sales_platform" data-title="POS-рішення (термінал/QR, чеки)" id="popup_pos">
+<div class="title">POS-рішення (термінал/QR, чеки)</div>
+<div class="raci"><span class="badge">RACI</span>R: COO | A: COO | C: Sales Manager | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="packaging" data-title="Інвентаризація для івенту (SKU, ціники)" id="popup_inventory">
+<div class="title">Інвентаризація для івенту (SKU, ціники)</div>
+<div class="raci"><span class="badge">RACI</span>R: COO | A: COO | C: Sales Manager | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_zoning" data-title="Планограма столу" id="popup_planogram">
+<div class="title">Планограма столу</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan | A: LPA | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="sales_platform" data-title="Скрипти продажів" id="popup_sales_scripts">
+<div class="title">Скрипти продажів</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales | A: CEO | C: CEO | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="popup_feedback,popup_photovideo" data-title="Дяку-листи, пост-дайджест після івенту" id="popup_thanks_digest">
+<div class="title">Дяку-листи, пост-дайджест після івенту</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: CEO | C: Sales Manager | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+</div>
+<div class="lane"><h2>🔥 Продукт і виробництво (Drop-month)</h2>
+<div class="task" data-deps="techpack_bom,qcqa_checklist" data-title="Виробництво дропу (сумки, кисети, запальнички)" id="mass_production">
+<div class="title">Виробництво дропу (сумки, кисети, запальнички)</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan, COO | A: COO | C: CEO | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="final_qc,tags_attached,care_labels,thank_you_cards" data-title="Пакування продукції (збірка, коробки, вкладення)" id="packaging">
+<div class="title">Пакування продукції (збірка, коробки, вкладення)</div>
+<div class="raci"><span class="badge">RACI</span>R: COO, Brand Designer, LPA | A: COO | C: Sales Manager, SMM | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="mass_production" data-title="Краш-тести та перевірка якості виробів" id="crash_tests">
+<div class="title">Краш-тести та перевірка якості виробів</div>
+<div class="raci"><span class="badge">RACI</span>R: COO, LPA | A: COO | C: команда | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="design_corrections" data-title="Фінальна перевірка семплів перед масовим запуском" id="final_samples_check">
+<div class="title">Фінальна перевірка семплів перед масовим запуском</div>
+<div class="raci"><span class="badge">RACI</span>R: Lead Product Artisan | A: COO | C: CEO | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="tags_design,mass_production" data-title="Бірки вшиті (виробництво та пришивання)" id="tags_attached">
+<div class="title">Бірки вшиті (виробництво та пришивання)</div>
+<div class="raci"><span class="badge">RACI</span>R: Brand Designer, Lead Product Artisan | A: COO | C: CEO | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="labels_design,mass_production" data-title="Етикетки (догляд, склад, просто етикетка)" id="care_labels">
+<div class="title">Етикетки (догляд, склад, просто етикетка)</div>
+<div class="raci"><span class="badge">RACI</span>R: Brand Designer, COO | A: COO | C: LPA | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="inserts_design,mass_production" data-title="Дяку-картки (вкладиші)" id="thank_you_cards">
+<div class="title">Дяку-картки (вкладиші)</div>
+<div class="raci"><span class="badge">RACI</span>R: Brand Designer, COO | A: COO | C: Sales Manager, LPA | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="final_qc" data-title="Фото/відео архів готових виробів" id="final_photo_archive">
+<div class="title">Фото/відео архів готових виробів</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: COO | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="mass_production,crash_tests" data-title="Фінальний QC перед пакуванням (checklist на кожен SKU)" id="final_qc">
+<div class="title">Фінальний QC перед пакуванням (checklist на кожен SKU)</div>
+<div class="raci"><span class="badge">RACI</span>R: COO, LPA | A: COO | C: LPA | I: команда</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+</div>
+<div class="lane"><h2>📢 Маркетинг (Drop-month)</h2>
+<div class="task" data-deps="prepr_teaser,media_plan" data-title="Тизер-кампанія → reveal → день дропу" id="teaser_reveal_drop">
+<div class="title">Тизер-кампанія → reveal → день дропу</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: CEO | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="promo_kits" data-title="Робота з інфлюенсерами" id="influencers_ops">
+<div class="title">Робота з інфлюенсерами</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales Manager | A: PM | C: SMM | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="content_plan,visuals_posts" data-title="Пости й рілзи під час запуску" id="launch_posts">
+<div class="title">Пости й рілзи під час запуску</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: PM | C: Sales | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="ugc_concept" data-title="UGC-кампанія" id="ugc_campaign">
+<div class="title">UGC-кампанія</div>
+<div class="raci"><span class="badge">RACI</span>R: SMM | A: CEO | C: Sales Manager | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+<div class="task" data-deps="real_shipments,ugc_campaign" data-title="Збір відгуків і кейсів" id="reviews_cases">
+<div class="title">Збір відгуків і кейсів</div>
+<div class="raci"><span class="badge">RACI</span>R: Sales Manager | A: COO | C: SMM | I: CEO</div>
+<div class="deps"><span class="badge">Залежить від</span><span class="deps-list"></span></div>
+<div class="unlocks"><span class="badge">Відкриває</span><span class="unlocks-list"></span></div>
+</div>
+</div>
+</div>
+</body>
 </html>
