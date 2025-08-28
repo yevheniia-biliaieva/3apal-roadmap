@@ -107,3 +107,15 @@ document.addEventListener('DOMContentLoaded', makeLinks);
 
   window.__applyDoneUI = ()=>applyDoneUI(new Set(load()));
 })();
+
+document.addEventListener('DOMContentLoaded', function(){
+  // якщо в localStorage вже є конфіг і токен
+  const cfg = JSON.parse(localStorage.getItem('ghSyncCfg.v1') || '{}');
+  const token = document.getElementById('gh_token')?.value.trim();
+  if (cfg.repo && cfg.branch && cfg.path && token){
+    // зробити авто-Load
+    setTimeout(()=> {
+      document.getElementById('btn_load')?.click();
+    }, 300); // невелика пауза щоб DOM встиг намалюватися
+  }
+});
