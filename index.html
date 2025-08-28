@@ -10,6 +10,30 @@
 	</head>
 <body>
 <h1>3apal — Roadmap</h1>
+	<div class="toolbar">
+  <div class="col-4">
+    <label>Repo (owner/name)</label>
+    <input id="gh_repo" placeholder="owner/name">
+  </div>
+  <div class="col-2">
+    <label>Branch</label>
+    <input id="gh_branch" placeholder="main" value="main">
+  </div>
+  <div class="col-3">
+    <label>State path</label>
+    <input id="gh_path" placeholder="state.json" value="state.json">
+  </div>
+  <div class="col-3">
+    <label>Token (fine-grained)</label>
+    <input id="gh_token" placeholder="github_pat_***" type="password">
+  </div>
+  <div class="col-12">
+    <button id="btn_load">Load state from GitHub</button>
+    <button id="btn_save">Save state to GitHub</button>
+    <span class="status" id="gh_status"></span>
+  </div>
+</div>
+
 <div class="legend">
   Клік правою кнопкою по картці — <b>виконано / скасувати</b>.
 
