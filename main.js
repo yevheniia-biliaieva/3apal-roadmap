@@ -1,5 +1,4 @@
-// ============ NAV ============
-
+// ============ Навігація між тасками ============
 function scrollToTask(id){
   const el = document.getElementById(id);
   if (!el) return;
@@ -12,7 +11,7 @@ function makeLinks(){
   document.querySelectorAll('[data-deps]').forEach(card=>{
     const id = card.id;
 
-    // --- "Залежить від"
+    // "Залежить від"
     const deps = card.dataset.deps ? card.dataset.deps.split(',').filter(Boolean) : [];
     const depsWrap = card.querySelector('.deps-list');
     deps.forEach((d, idx)=>{
@@ -20,17 +19,16 @@ function makeLinks(){
       span.className = 'linklike';
       span.textContent = document.getElementById(d)?.dataset.title || d;
       span.onclick = ()=>scrollToTask(d);
-      span.setAttribute('data-dep-src', d); // для зеленого перекреслення
+      span.setAttribute('data-dep-src', d);
       depsWrap.appendChild(span);
       if (idx < deps.length - 1){
         const s = document.createElement('span');
-        s.className = 'sep';
-        s.textContent = ', ';
+        s.className = 'sep'; s.textContent = ', ';
         depsWrap.appendChild(s);
       }
     });
 
-    // --- "Відкриває"
+    // "Відкриває"
     const unlocks = window.revMap ? (window.revMap[id] || []) : [];
     const unlWrap = card.querySelector('.unlocks-list');
     unlocks.forEach((u, idx)=>{
@@ -41,8 +39,7 @@ function makeLinks(){
       unlWrap.appendChild(span);
       if (idx < unlocks.length - 1){
         const s = document.createElement('span');
-        s.className = 'sep';
-        s.textContent = ', ';
+        s.className = 'sep'; s.textContent = ', ';
         unlWrap.appendChild(s);
       }
     });
@@ -51,8 +48,7 @@ function makeLinks(){
 document.addEventListener('DOMContentLoaded', makeLinks);
 
 
-// ============ DONE + READY ============
-
+// ============ Done + Ready ============
 (function(){
   const KEY = 'doneTasks.v1';
   const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e){ return []; } };
@@ -61,8 +57,7 @@ document.addEventListener('DOMContentLoaded', makeLinks);
   function applyReady(set){
     document.querySelectorAll('.task').forEach(card=>{
       if(card.classList.contains('done')){
-        card.classList.remove('ready');
-        return;
+        card.classList.remove('ready'); return;
       }
       const deps = (card.dataset.deps || '').split(',').filter(Boolean);
       if(deps.length === 0 || deps.every(d => set.has(d))){
@@ -77,12 +72,10 @@ document.addEventListener('DOMContentLoaded', makeLinks);
     document.querySelectorAll('.task').forEach(el=>{
       if (set.has(el.id)) el.classList.add('done'); else el.classList.remove('done');
     });
-    // зелене перекреслення у "Залежить від"
     document.querySelectorAll('.deps-list .linklike').forEach(el=>{
       const src = el.getAttribute('data-dep-src');
       if (src && set.has(src)) el.classList.add('dep-done'); else el.classList.remove('dep-done');
     });
-    // фіолетове "готово до старту"
     applyReady(set);
   }
 
@@ -92,10 +85,10 @@ document.addEventListener('DOMContentLoaded', makeLinks);
     save(Array.from(current));
     applyDoneUI(current);
 
-    // авто-Save у GitHub (якщо налаштовано)
+    // авто-Save у GitHub
     if (typeof window.__saveState === 'function') {
       clearTimeout(window.__saveDebounce);
-      window.__saveDebounce = setTimeout(()=> {
+      window.__saveDebounce = setTimeout(()=>{
         try {
           const cfg = JSON.parse(localStorage.getItem('ghSyncCfg.v1') || '{}');
           if (cfg && cfg.token) window.__saveState();
@@ -104,20 +97,13 @@ document.addEventListener('DOMContentLoaded', makeLinks);
     }
   }
 
-  // правий клік по картці — done/undo
   document.addEventListener('contextmenu', function(e){
     const card = e.target.closest('.task');
-    if (card){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      toggleById(card.id);
-    }
+    if (card){ e.preventDefault(); toggleById(card.id); }
   }, true);
 
-  // початкове застосування стану
   document.addEventListener('DOMContentLoaded', ()=>applyDoneUI(new Set(load())));
 
-  // якщо DOM зміниться — освіжити стан
   if ('MutationObserver' in window){
     document.addEventListener('DOMContentLoaded', ()=>{
       const wrapper = document.querySelector('.wrapper');
@@ -127,17 +113,14 @@ document.addEventListener('DOMContentLoaded', makeLinks);
     });
   }
 
-  // зробимо доступним для GitHub load
   window.__applyDoneUI = ()=>applyDoneUI(new Set(load()));
 })();
 
 
-// ---- GitHub Sync (load/save + auto-Load + 409 retry) ----
+// ============ GitHub Sync ============
 (function(){
   const KEY_CFG  = 'ghSyncCfg.v1';
   const KEY_DONE = 'doneTasks.v1';
-  const DEBOUNCE_MS = 400;      // анти-спам на авто-Save
-  let saveTimer = null;
 
   const els = () => ({
     repo:   document.getElementById('gh_repo'),
@@ -151,7 +134,6 @@ document.addEventListener('DOMContentLoaded', makeLinks);
 
   const cfgGet = () => { try { return JSON.parse(localStorage.getItem(KEY_CFG) || '{}'); } catch(e){ return {}; } };
   const cfgSet = (o) => localStorage.setItem(KEY_CFG, JSON.stringify(o));
-
   const getDone = () => { try { return JSON.parse(localStorage.getItem(KEY_DONE) || '[]'); } catch(e){ return []; } };
   const setDone = (arr) => localStorage.setItem(KEY_DONE, JSON.stringify(arr));
 
@@ -171,85 +153,62 @@ document.addEventListener('DOMContentLoaded', makeLinks);
   }
 
   function loadCfgToUI(){
-    const c = cfgGet();
-    const $ = els();
-    if (c.repo)   $.repo.value = c.repo;
+    const c = cfgGet(); const $ = els();
+    if (c.repo) $.repo.value = c.repo;
     if (c.branch) $.branch.value = c.branch;
-    if (c.path)   $.path.value = c.path;
-    if (c.token)  $.token.value = c.token; // зберігаємо токен у localStorage, щоби ПМ не вводила щоразу
-  }
-
-  async function ghJSON(url, opts={}){
-    try{
-      const r = await fetch(url, {
-        headers: { 'Accept':'application/vnd.github+json', 'Cache-Control':'no-cache', ...(opts.headers||{}) },
-        ...opts
-      });
-      if (!r.ok){
-        const t = await r.text().catch(()=>String(r.status));
-        throw new Error(`HTTP ${r.status}: ${t}`);
-      }
-      return r.json();
-    } catch(err){
-      // TypeError: Failed to fetch — мережа/AdBlock/HTTPS тощо
-      throw err;
-    }
+    if (c.path) $.path.value = c.path;
+    if (c.token) $.token.value = c.token;
   }
 
   async function getContent(repo, path, ref, token){
     const api = `https://api.github.com/repos/${repo}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(ref)}`;
-    return ghJSON(api, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
+    const headers = { 'Accept':'application/vnd.github+json', 'Cache-Control':'no-cache' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+    const r = await fetch(api, { headers });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    return r.json();
   }
 
   function decodeContent(b64){ return atob((b64||'').replace(/\n/g,'')); }
   function encodeContent(str){ return btoa(unescape(encodeURIComponent(str))); }
 
-  async function loadState({quietAuto=false}={}){
+  async function loadState({quietAuto=false, retries=2}={}){
     const {repo, branch, path, token} = readCfg();
     if (!repo || !branch || !path || !token){
-      show('Заповни repo / branch / path / token.', false, quietAuto);
-      return;
+      show('Заповни repo / branch / path / token.', false, quietAuto); return;
     }
-    try{
+    try {
       show('Завантажую...', true, quietAuto);
-      const data = await getContent(repo, path, branch, token)
-        .catch(async (e)=>{
-          // 404: файла ще нема — вважаємо порожнім станом
-          if (String(e.message).startsWith('HTTP 404')) return {content: btoa('[]')};
-          throw e;
-        });
+      const data = await getContent(repo, path, branch, token);
       const raw = decodeContent(data.content || '');
       const json = JSON.parse(raw || '[]');
-      const arr = Array.isArray(json) ? json : (json.done || []);
+      let arr = [];
+      if (Array.isArray(json)) arr = json;
+      else if (json && Array.isArray(json.done)) arr = json.done;
       setDone(arr);
       window.__applyDoneUI && window.__applyDoneUI();
       show('Стан завантажено з GitHub.', true, quietAuto);
     } catch(e){
-      show('Помилка завантаження: ' + e.message, false, quietAuto);
+      if (retries>0){
+        console.warn('Load failed, retrying...', e);
+        setTimeout(()=>loadState({quietAuto, retries:retries-1}), 2000);
+      } else {
+        show('Помилка завантаження: ' + e.message, false, quietAuto);
+      }
     }
   }
 
   async function saveStateInternal(){
     const {repo, branch, path, token} = readCfg();
     if (!repo || !branch || !path || !token){
-      show('Заповни repo / branch / path / token.', false);
-      return;
+      show('Заповни repo / branch / path / token.', false); return;
     }
     show('Зберігаю...');
     const api = `https://api.github.com/repos/${repo}/contents/${encodeURIComponent(path)}`;
 
-    // завжди спочатку тягнемо актуальний sha (або 404 якщо файла нема)
     let sha = null;
-    try{
-      const info = await getContent(repo, path, branch, token);
-      sha = info.sha || null;
-    } catch(e){
-      if (!String(e.message).startsWith('HTTP 404')) {
-        // не 404 — реальна помилка
-        show('Помилка збереження (info): ' + e.message, false);
-        return;
-      }
-    }
+    try { const info = await getContent(repo, path, branch, token); sha = info.sha || null; }
+    catch(e){ if (!String(e.message).startsWith('HTTP 404')) { show('Помилка (info): '+e.message,false); return; } }
 
     const body = {
       message: 'Update roadmap done state',
@@ -258,50 +217,26 @@ document.addEventListener('DOMContentLoaded', makeLinks);
       ...(sha ? { sha } : {})
     };
 
-    async function put(withSha){
+    async function put(shaOverride){
       const res = await fetch(api, {
         method: 'PUT',
-        headers: { 'Accept':'application/vnd.github+json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify(withSha ? {...body, sha: withSha} : body)
+        headers: { 'Accept':'application/vnd.github+json','Authorization':`Bearer ${token}` },
+        body: JSON.stringify(shaOverride ? {...body, sha: shaOverride} : body)
       });
-      if (!res.ok){
-        const txt = await res.text();
-        throw new Error(`HTTP ${res.status}: ${txt}`);
-      }
+      if (!res.ok){ const txt = await res.text(); throw new Error(`HTTP ${res.status}: ${txt}`); }
     }
 
-    try{
-      await put(sha);
-      show('Збережено в GitHub.');
-    } catch(e){
-      // якщо 409 — підтягнемо свіжий sha і ретраїмо один раз
+    try { await put(sha); show('Збережено в GitHub.'); }
+    catch(e){
       if (String(e.message).startsWith('HTTP 409')){
-        try{
-          const fresh = await getContent(repo, path, branch, token);
-          await put(fresh.sha);
-          show('Збережено в GitHub (після оновлення sha).');
-        } catch(e2){
-          show('Помилка збереження (409 retry): ' + e2.message, false);
-        }
-      } else {
-        show('Помилка збереження: ' + e.message, false);
-      }
+        try { const fresh = await getContent(repo, path, branch, token); await put(fresh.sha);
+          show('Збережено в GitHub (після оновлення sha).'); }
+        catch(e2){ show('Помилка збереження (409 retry): '+e2.message,false); }
+      } else { show('Помилка збереження: '+e.message,false); }
     }
   }
 
-  // публічні кнопки та авто-Save (дебаунс)
-  function saveStateDebounced(){
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(saveStateInternal, DEBOUNCE_MS);
-  }
-
-  // інтеграція з “правий клік” — тригеримо авто-Save
-  document.addEventListener('contextmenu', (e)=>{
-    if (e.target.closest('.task')){
-      // зачекаємо поки локальний стан оновиться (__applyDoneUI викликано) і збережемо
-      setTimeout(saveStateDebounced, 50);
-    }
-  }, true);
+   window.__saveState = saveStateInternal;
 
   document.addEventListener('DOMContentLoaded', ()=>{
     loadCfgToUI();
@@ -309,12 +244,12 @@ document.addEventListener('DOMContentLoaded', makeLinks);
     if ($.load) $.load.onclick = ()=>loadState();
     if ($.save) $.save.onclick = ()=>saveStateInternal();
 
-    // авто-Load при відкритті, якщо є всі поля — і робимо це “тихо”
     const c = cfgGet();
     if (c.repo && c.branch && c.path && c.token){
-      // підставити у форму, щоб ПМ нічого не вводила
       $.repo.value = c.repo; $.branch.value = c.branch; $.path.value = c.path; $.token.value = c.token;
-      loadState({quietAuto:true}).catch(()=>{ /* тихо */ });
+      loadState({quietAuto:true}).catch(()=>{});
+      // 🔄 авто-оновлення кожну хвилину
+      setInterval(()=> loadState({quietAuto:true}), 60000);
     }
   });
 })();
